@@ -11,18 +11,13 @@ def validate_schema_definitions(api_spec):
         for method, operation in methods.items():
             method_upper = method.upper()
 
-            # Validate 200 response schema (or 201 for POST)
-            # You can customize this as needed
             # Validate expected response status based on HTTP method
-      # Validate expected response status based on HTTP method
-if method_upper == "POST":
-    response_statuses = ["201"]
-elif method_upper in ["GET", "PUT", "DELETE"]:
-    response_statuses = ["200"]
-else:
-    response_statuses = ["200"]  # fallback
-
-
+            if method_upper == "POST":
+                response_statuses = ["201"]
+            elif method_upper in ["GET", "PUT", "DELETE"]:
+                response_statuses = ["200"]
+            else:
+                response_statuses = ["200"]  # fallback
 
             for status_code in response_statuses:
                 try:
