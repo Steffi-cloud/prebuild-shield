@@ -25,12 +25,13 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
       responses:
-        '200':
+        '201':  # <-- updated from '200' to '201'
           description: User created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+
 
 components:
   schemas:
