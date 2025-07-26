@@ -1,0 +1,37 @@
+name: Validate API Spec
+
+on:
+  push:
+    paths:
+      - 'specs/**'
+      - 'linter/**'
+      - 'validator.py'
+
+jobs:
+  lint-openapi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Node.js and Spectral
+        run: |
+          npm install -g @stoplight/spectral-cli
+
+      - name: Lint OpenAPI spec
+        run: spectral lint specs/sample-api.yaml -r linter/spectral-rules.yaml
+
+  run-python-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Validator
+        run: python validator.py
