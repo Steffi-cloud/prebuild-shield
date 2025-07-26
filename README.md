@@ -1,5 +1,7 @@
 Prebuild Shield - API Validator
+
 Overview
+
 Prebuild Shield is a tool that validates OpenAPI specifications for RESTful APIs. It checks the API schema to make sure everything is in order. This is helpful to catch errors early and make sure the API documentation is correct.
 
 Features:
@@ -20,16 +22,12 @@ How to Use
 1. Clone the Repository
 First, download the project files by cloning the repository:
 
-bash
-Copy
-Edit
+
 git clone https://github.com/Steffi-cloud/prebuild-shield.git
 2. Install Dependencies
 Navigate to the project folder and install the required dependencies by running:
 
-bash
-Copy
-Edit
+
 cd prebuild-shield
 pip install -r requirements.txt
 3. Add Your OpenAPI Specification
@@ -38,9 +36,7 @@ Place your OpenAPI specification file (like sample-api.yaml) in the specs/ folde
 4. Run the Validator
 To validate the API spec, run the following command:
 
-bash
-Copy
-Edit
+
 python validator.py
 This will check your OpenAPI specification and print any issues or errors in the terminal.
 
@@ -61,6 +57,7 @@ Missing Schemas: Check if you have all required schemas in your OpenAPI spec (li
 
 Contributions
 Feel free to submit a pull request if you want to add more features or fix any bugs. We'd love your help!
+
 
 
 
