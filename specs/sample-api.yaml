@@ -7,7 +7,7 @@ paths:
   /users:
     get:
       summary: Get all users
-     ## operationId: getUsers
+      operationId: getUsers
       responses:
         '200':
           description: OK
