@@ -9,22 +9,33 @@ def validate_schema_definitions(api_spec):
 
     for path, methods in api_spec.get("paths", {}).items():
         for method, operation in methods.items():
-            # Validate 200 response schema
-            try:
-                schema = operation["responses"]["200"]["content"]["application/json"]["schema"]
-                if not schema:
-                    errors.append(f"{method.upper()} {path} -> Missing schema in 200 response")
-            except KeyError:
-                errors.append(f"{method.upper()} {path} -> No 200 response schema found")
+            method_upper = method.upper()
 
-            # Optionally validate request body schema
-            if "requestBody" in operation:
+            # Validate 200 response schema (or 201 for POST)
+            # You can customize this as needed
+            response_statuses = ["200"]
+            if method_upper == "POST":
+                response_statuses.append("201")
+
+            for status_code in response_statuses:
                 try:
-                    schema = operation["requestBody"]["content"]["application/json"]["schema"]
+                    schema = operation["responses"][status_code]["content"]["application/json"]["schema"]
                     if not schema:
-                        errors.append(f"{method.upper()} {path} -> Missing schema in request body")
+                        errors.append(f"{method_upper} {path} -> Missing schema in {status_code} response")
                 except KeyError:
-                    errors.append(f"{method.upper()} {path} -> No request body schema found")
+                    errors.append(f"{method_upper} {path} -> No {status_code} response schema found")
+
+            # Validate requestBody schema only for POST and PUT
+            if method_upper in ["POST", "PUT"]:
+                if "requestBody" not in operation:
+                    errors.append(f"{method_upper} {path} -> Missing requestBody")
+                else:
+                    try:
+                        schema = operation["requestBody"]["content"]["application/json"]["schema"]
+                        if not schema:
+                            errors.append(f"{method_upper} {path} -> Missing schema in request body")
+                    except KeyError:
+                        errors.append(f"{method_upper} {path} -> No request body schema found")
 
     return errors
 
