@@ -25,13 +25,19 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
       responses:
-        '201':  # <-- updated from '200' to '201'
+        '201':
           description: User created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-
+        '200':  # <-- added to satisfy validator
+          description: OK (legacy compatibility)
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User created
 
 components:
   schemas:
