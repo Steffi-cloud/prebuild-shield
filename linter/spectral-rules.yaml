@@ -1,0 +1,15 @@
+extends: spectral:oas
+
+rules:
+  operation-operationId:
+    description: Operation should have an operationId
+    given: $.paths[*][*]
+    then:
+      field: operationId
+      function: truthy
+
+  no-get-with-body:
+    description: GET operations should not have a requestBody
+    given: $.paths[*].get.requestBody
+    then:
+      function: falsy
